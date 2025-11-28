@@ -1,0 +1,4 @@
+.ipynb-checkpoints
+*.jsonl
+*.parquet
+# *.csv
