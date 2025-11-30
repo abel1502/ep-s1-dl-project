@@ -2,3 +2,4 @@
 *.jsonl
 *.parquet
 # *.csv
+*.pt
