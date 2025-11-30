@@ -1,4 +1,4 @@
-Pretrained text encoder (`camambert`) without finetuning + some metadata fed into a feedforward classifier with 1 hidden layer. Batch size 32.
+Pretrained text encoder (`camambert`) without finetuning + some metadata fed into a feedforward classifier with 1 hidden layer. Batch size 32. 3 epochs.
 
 <s>Somehow fares worse than logistic regression...? Heck, its public score is the same as dummy classifier...</s>
 
