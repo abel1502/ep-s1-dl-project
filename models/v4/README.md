@@ -1,0 +1,3 @@
+Tried actually analyzing the importance of various metadata fields. Added the most important ones to the model. Removed the text encoding at all for faster training.
+
+Results are awful... And I believe we've uncovered an issue with the model. It seems that layernorm has been almost completely destroying the metadata! This is both bad news and great news. Apparently the previous results were almost entirely carried by the text encoding, which should mean that the addition of metadata in a proper way might improve the performance a lot more. Will try batchnorm next
