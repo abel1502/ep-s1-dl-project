@@ -1,5 +1,4 @@
-Evaluated the quality of various IDs as metadata, added a couple of them that were previously being discarded.
-Fixed imputation of nans with mean: now correctly take the mean specifically of the training dataset.
-Added fixed text embedding
-
-(note: ongoing work)
+- Added encoding of description text
+- At first, it was making the accuracy slightly worse
+- But then as per Andrey's suggestion, I implemented a separate, lower learning rate for the pre-trained encoder vs. the rest of the network
+- now we have an accuracy of 0.88 (ZAMN)

@@ -1,0 +1,11 @@
+2025-12-03: Changelog started
+2025-12-03: Started encoding description text. For some reason it's doing slightly worse now. Need to adjust learning rates, perhaps making differential learning rates for head and encoder.
+
+
+Todo:
+- Start encoding main text again
+- Could also run the reply text through the model at inference time,  to determine if the main tweet may be replying to an influencer, which may be useful
+- find out language distribution of tweets
+  - It's mostly french obvs, but I think there are other languages, at least in the tweets being replied to. mostly english probs
+- if there is both french and english, we should probs use the base model "Geotrend/distilbert-base-en-fr-cased"
+
