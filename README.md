@@ -4,5 +4,5 @@ For now, just loose notes
 
 - Some code from `baseline.ipynb` was adapted, in case not mentioning this would count as plagiarism.
 - BERT is apparently the best model for text classification.
-- 
+- Finetuning the text encoder with user.description overfits way too easily, because there's relatively few options for this field and a significant distribution shift between train and test
 
