@@ -8,11 +8,11 @@ Tried 5 options for the text encoder.
 - dummy (no text encodings): 81% at e10
 - distilbert-base-cased: 80.5% at e10, 80.5% at e08, 81.4% at e06
 - camembert-base: 79.9% at e10, 82% at e04
-- camembert-large:
-- camembertav2-base:
+- camembert-large: 79.9% at e10, 82% at e03
+- camembertav2-base: TBD
 - distilbert-base-en-fr-cased: 79.6% at e10, 80.7% at e05, 81.5 at e03
-- flaubert_base_cased:
-- flaubert_small_cased:
+- flaubert_base_cased: 77.1% at e10, 78.9% at e04
+- flaubert_small_cased: 77.6% at e10, 79.1% at e04
 
 (note: ongoing work)
 
