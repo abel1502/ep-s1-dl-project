@@ -6,3 +6,6 @@
 *.ckpt
 # For when it's a symbolic link
 text_enc_cache
+*.cbm
+*.tfevents
+*.tmp
