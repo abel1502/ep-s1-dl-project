@@ -9,7 +9,7 @@ vaughn-2:
             Result: validation accuracy of 0.8032 and kaggle test accuracy of 0.821, which is tied for second best run (behind 0.824, nearly the same)
 
 Todo:
-- Now that we are splitting the test/val sets proeprly, try reducing the dropout rate from 0.75 and see if we get an increase in validation accuracy
+- Now that we are splitting the test/val sets properly, try reducing the dropout rate from 0.75 and see if we get an increase in validation accuracy
 - experiment with a simpler, more bag-of-words-like encoder for desc_text to see if it works better than a transformer
 - take another close gander at the dataset and think "how would I determine if this was an influencer", for feature engineering.
 - consult AI to ask how important fine-tuning really is in this context. do we need it?
