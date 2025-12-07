@@ -1,11 +1,20 @@
 2025-12-03: Changelog started
+vaughn-1:
 2025-12-03: Started encoding description text. For some reason it's doing slightly worse now. Need to adjust learning rates, perhaps making differential learning rates for head and encoder.
 
+vaughn-2:
+2025-12-07: branched vaughn-2 off of andrey-4
+2025-12-07: adopted "lazy encoding with cacheing" instead of hard pre-encoding text data before splitting testing/validation sets. This is to ease debugging and fix data leakage.
 
 Todo:
-- Start encoding main text again
-- Could also run the reply text through the model at inference time,  to determine if the main tweet may be replying to an influencer, which may be useful
-- find out language distribution of tweets
-  - It's mostly french obvs, but I think there are other languages, at least in the tweets being replied to. mostly english probs
-- if there is both french and english, we should probs use the base model "Geotrend/distilbert-base-en-fr-cased"
+- detect if there is currently data leakage of descriptions between training and validation sets (by counting the overlap)
+- if there is, split the sets along user_id and see how desc_text overfitting is affected.
+  - should also see how the correlations of place_id and quoted_status_place_id are affected. Currently they are high, but logically, they shouldn't be.
+  - if this leakage was the cause of desc_text overfitting, then we should be able to reduce the dropout rate from 0.75 and see an increase in validation accuracy
+  - experiment with a simpler, more bag-of-words-like encoder for desc_text to see if it works better than a transformer
+- take another close gander at the dataset and think "how would I determine if this was an influencer", for feature engineering.
+- consult AI to ask how important fine-tuning really is in this context. do we need it?
+- consider if emoji type and count are being encoded by camembert. Perhaps introduce a bag-of-emojis feature vector
+  - (I think that emoji usage in main text, and perhaps description, should be a good indicator of influencerness)
+- replace st. devs of 0 with 1 in the metadata normalization, to avoid div by zero, in case that may be happening or causing problems
 
