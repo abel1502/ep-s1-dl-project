@@ -29,3 +29,26 @@ Todo:
 - consider if emoji type and count are being encoded by camembert. Perhaps introduce a bag-of-emojis feature vector
   - (I think that emoji usage in main text, and perhaps description, should be a good indicator of influencerness)
 
+
+
+
+
+Notes to self on data leakage:
+  we're jumping through hoops to avoid having the same users in both the testing and validation sets
+in order to avoid data leakage. We assume that that should give us a boost in accuracy. But will it?
+
+It will if we are currently suffering from overfitting due to data leakage. But can we be suffering
+from data leakage if we can't even tell if the same users (without descriptions) are in the testing/
+validation? It's easy to divide users along user_description. But if they have no description,
+and no parseable user_id, then where would the leakage be?
+probably in:
+- user_favourites_count
+- user_listed_count
+- user_statuses_count
+- user_created_at
+
+These values would be the same for different instances of the same user, who we would not be able to identify and prevent
+from ending up in both training and validation. Then, we would train a model to strongly predict "influencer" when it sees
+a user in the kaggle testing set who has values closely resembling those of this person.
+
+So, we would indeed benefit from differentiating unique users who have no descriptions.
