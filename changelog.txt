@@ -7,13 +7,15 @@ vaughn-2:
 2025-12-07: adopted "lazy encoding with cacheing" instead of hard pre-encoding text data before splitting testing/validation sets. This is to ease debugging and fix data leakage.
 2025-12-07: Split test/val sets along user_description in hopes of eliminating data leakage. Had to use desc because it turns out 'id' is probably per-tweet, not per-user.
             Result: validation accuracy of 0.8032 and kaggle test accuracy of 0.821, which is tied for second best run (behind 0.824, nearly the same)
+vaughn v12:
+- Now that we are splitting the test/val sets properly, try reducing the dropout rate from 0.75 and see if we get an increase in validation accuracy
+            Result: all it did was reduce the kaggle accuracy by 0.004
+- replaced st. devs of 0 with 1 in the metadata normalization, to avoid div by zero, in case that may be happening or causing problems (though it seemed like there was probs no such occurrences)
 
 Todo:
-- Now that we are splitting the test/val sets properly, try reducing the dropout rate from 0.75 and see if we get an increase in validation accuracy
 - experiment with a simpler, more bag-of-words-like encoder for desc_text to see if it works better than a transformer
 - take another close gander at the dataset and think "how would I determine if this was an influencer", for feature engineering.
 - consult AI to ask how important fine-tuning really is in this context. do we need it?
 - consider if emoji type and count are being encoded by camembert. Perhaps introduce a bag-of-emojis feature vector
   - (I think that emoji usage in main text, and perhaps description, should be a good indicator of influencerness)
-- replace st. devs of 0 with 1 in the metadata normalization, to avoid div by zero, in case that may be happening or causing problems
 
