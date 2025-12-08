@@ -11,11 +11,44 @@ vaughn v12:
 - Now that we are splitting the test/val sets properly, try reducing the dropout rate from 0.75 and see if we get an increase in validation accuracy
             Result: all it did was reduce the kaggle accuracy by 0.004
 - replaced st. devs of 0 with 1 in the metadata normalization, to avoid div by zero, in case that may be happening or causing problems (though it seemed like there was probs no such occurrences)
+- tried: increasing post-PCA dimensionality of user_description encoding from 64 to 256, since we theoretically addressed data leakage on descriptions
+        Result: If anything, it made the validation accuracy slightly worse.
+
 
 Todo:
+- possibly huge suggestion from Gemini:
+  - Currently we have "source" disabled. This shows what program/device the user used to make the tweet. Gemini mentioned that influencers tend to use a program
+  called TweetDeck. Sure enough, I searched the training data for "TweetDeck", and there are more than 20,000 instances (the search thing maxes out)
+  - We may need to unfreeze the encoder in order to detect "TweetDeck" tokens, unless we were to just hardcode a boolean for it.
+  - Important!: We should concatenate main_text, user_description, and (!) source into one input, separated by a special [SEP] character.
+    - This will allow the encoder, when unfrozen, to see how parts of the tweet and description attend to different sources.
+- Unfreeze encoder
 - experiment with a simpler, more bag-of-words-like encoder for desc_text to see if it works better than a transformer
 - take another close gander at the dataset and think "how would I determine if this was an influencer", for feature engineering.
 - consult AI to ask how important fine-tuning really is in this context. do we need it?
 - consider if emoji type and count are being encoded by camembert. Perhaps introduce a bag-of-emojis feature vector
   - (I think that emoji usage in main text, and perhaps description, should be a good indicator of influencerness)
 
+
+
+
+
+Notes to self on data leakage:
+  we're jumping through hoops to avoid having the same users in both the testing and validation sets
+in order to avoid data leakage. We assume that that should give us a boost in accuracy. But will it?
+
+It will if we are currently suffering from overfitting due to data leakage. But can we be suffering
+from data leakage if we can't even tell if the same users (without descriptions) are in the testing/
+validation? It's easy to divide users along user_description. But if they have no description,
+and no parseable user_id, then where would the leakage be?
+probably in:
+- user_favourites_count
+- user_listed_count
+- user_statuses_count
+- user_created_at
+
+These values would be the same for different instances of the same user, who we would not be able to identify and prevent
+from ending up in both training and validation. Then, we would train a model to strongly predict "influencer" when it sees
+a user in the kaggle testing set who has values closely resembling those of this person.
+
+So, we would indeed benefit from differentiating unique users who have no descriptions.
