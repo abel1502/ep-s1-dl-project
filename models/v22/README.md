@@ -1,0 +1,1 @@
+Smaller hidden dimension, just 1 hidden layer.
